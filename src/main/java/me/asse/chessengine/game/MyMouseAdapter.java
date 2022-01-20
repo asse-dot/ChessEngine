@@ -9,14 +9,25 @@ public class MyMouseAdapter extends MouseAdapter {
 
      @Override
      public void mouseClicked(MouseEvent e) {
-        Location l = new Location(e.getX(), e.getY());
-        Piece piece = l.getPosition().getPiece();
+         Position position = new Location(e.getX(), e.getY()).getPosition();
+        Piece piece = position.getPiece();
+
+        if(GameFrame.getGamePanel().selectedPiece != null) {
+            if(GameFrame.getGamePanel().selectedPiece.getLegalMoss().contains(position)) {
+               for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
+                   if(this_piece == GameFrame.getGamePanel().selectedPiece) {
+                       this_piece.setPosition(position);
+                   }
+               }
+            }
+        }
 
         if(piece != null) {
+            GameFrame.getGamePanel().selectedPiece = piece;
             GameFrame.getGamePanel().clearhighlightsMoss();
             GameFrame.getGamePanel().FillLegalMoss();
-            for (Position position : piece.getLegalMoss()) {
-                GameFrame.getGamePanel().addhighlightsMoss(position);
+            for (Position this_position : piece.getLegalMoss()) {
+                GameFrame.getGamePanel().addhighlightsMoss(this_position);
             }
         }
 

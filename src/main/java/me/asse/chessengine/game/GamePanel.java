@@ -1,7 +1,9 @@
 package me.asse.chessengine.game;
 
 import me.asse.chessengine.game.pieces.Piece;
+import me.asse.chessengine.game.pieces.material.KnightWhite;
 import me.asse.chessengine.game.pieces.material.PawnWhite;
+import me.asse.chessengine.game.pieces.material.RookWhite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +18,12 @@ public class GamePanel extends JPanel implements ActionListener{
     public final static int unitsize_x = dimension_x/8;
     public final static int unitsize_y = dimension_y/8;
 
-    public List<Position> highlightsMoss = new ArrayList<Position>();
+    public Piece selectedPiece;
+
+    public List<Position> highlightsMoss = new ArrayList();
 
     public Graphics g;
-    private List<Piece> allPiece = new ArrayList<Piece>();
+    private List<Piece> allPiece = new ArrayList();
 
 
 
@@ -34,6 +38,9 @@ public class GamePanel extends JPanel implements ActionListener{
     public void startGame() {
         this.allPiece.add(new PawnWhite(null, Position.a2 ,1));
         this.allPiece.add(new PawnWhite(null, Position.a3, 1));
+        this.allPiece.add(new RookWhite(null, Position.a1, 5));
+        this.allPiece.add(new RookWhite(null, Position.h1, 5));
+        this.allPiece.add(new KnightWhite(null, Position.c1, 3));
     }
 
     @Override
@@ -99,6 +106,6 @@ public class GamePanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        repaint();
     }
 }

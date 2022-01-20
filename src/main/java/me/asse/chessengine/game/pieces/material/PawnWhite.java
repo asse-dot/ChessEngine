@@ -21,8 +21,10 @@ public class PawnWhite extends WhitePiece {
 
         Piece[][] pieces = Board.initBoard();
 
-        if(pieces[MatrixX][MatrixY + 1] == null) {
-            this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+        if(MatrixY + 1 < 8) {
+            if (pieces[MatrixX][MatrixY + 1] == null) {
+                this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+            }
         }
 
     }
