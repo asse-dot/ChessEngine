@@ -1,11 +1,10 @@
 package me.asse.chessengine.game;
 
 import me.asse.chessengine.game.pieces.Piece;
-import me.asse.chessengine.game.pieces.material.KnightWhite;
-import me.asse.chessengine.game.pieces.material.PawnWhite;
-import me.asse.chessengine.game.pieces.material.RookWhite;
+import me.asse.chessengine.game.pieces.material.*;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,9 @@ public class GamePanel extends JPanel implements ActionListener{
     public final static int dimension_x = 600;
     public final static int unitsize_x = dimension_x/8;
     public final static int unitsize_y = dimension_y/8;
+    public final static int DELAY = 60;
 
+    Timer timer;
     public Piece selectedPiece;
 
     public List<Position> highlightsMoss = new ArrayList();
@@ -33,14 +34,19 @@ public class GamePanel extends JPanel implements ActionListener{
         this.setFocusable(true);
         this.startGame();
         this.addMouseListener(new MyMouseAdapter());
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
 
     public void startGame() {
         this.allPiece.add(new PawnWhite(null, Position.a2 ,1));
-        this.allPiece.add(new PawnWhite(null, Position.a3, 1));
         this.allPiece.add(new RookWhite(null, Position.a1, 5));
-        this.allPiece.add(new RookWhite(null, Position.h1, 5));
         this.allPiece.add(new KnightWhite(null, Position.c1, 3));
+        this.allPiece.add(new BisShopWhite(null, Position.e2, 3));
+        this.allPiece.add(new PawnBlack(null, Position.b3, 1));
+        this.allPiece.add(new PawnBlack(null, Position.c6, 1));
+        this.allPiece.add(new PawnBlack(null, Position.b7, 1));
+        this.allPiece.add(new QueenWhite(null, Position.e1, 9));
     }
 
     @Override
@@ -72,11 +78,24 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }
 
-
+        PawnWhite pawn_white_promote = null;
+        PawnBlack pawn_black_promote = null;
         g.setColor(Color.red);
         for(Piece p : this.allPiece) {
+            if(p instanceof PawnWhite) {
+                PawnWhite pawnWhite = (PawnWhite) p;
+                if(p.getPosition().getMatrixY() == 7) {
+                    pawn_white_promote = pawnWhite;
+                }
+            } else if(p instanceof PawnBlack) {
+                PawnBlack pawnBlack = (PawnBlack) p;
+                if(p.getPosition().getMatrixY() == 0) {
+                    pawn_black_promote = pawnBlack;
+                }
+            }
             Board.drawPiece(g, p);
         }
+        promotePawnWhite(pawn_white_promote);
 
         for(Position p : this.highlightsMoss) {
             Board.highlightsMoss(g, p);
@@ -89,14 +108,24 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
+    public void removePiece(Piece piece) {
+        this.allPiece.remove(piece);
+    }
+
+    public void promotePawnWhite(PawnWhite pawn) {
+        if(pawn == null) {
+            return;
+        }
+        removePiece(pawn);
+        this.allPiece.add(new QueenWhite(null, pawn.getPosition(), 5));
+    }
+
     public void addhighlightsMoss(Position p) {
         this.highlightsMoss.add(p);
-        repaint();
     }
 
     public void clearhighlightsMoss() {
         this.highlightsMoss.clear();
-        repaint();
     }
 
 

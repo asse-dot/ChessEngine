@@ -1,5 +1,6 @@
 package me.asse.chessengine.game.pieces;
 
+import me.asse.chessengine.game.GameFrame;
 import me.asse.chessengine.game.Position;
 
 import java.awt.image.BufferedImage;
@@ -31,6 +32,10 @@ public abstract class Piece {
 
     public List<Position> getLegalMoss() {
         return this.legalMoss;
+    }
+
+    public int getPoint() {
+        return this.point;
     }
 
 
