@@ -39,14 +39,38 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void startGame() {
-        this.allPiece.add(new PawnWhite(null, Position.a2 ,1));
         this.allPiece.add(new RookWhite(null, Position.a1, 5));
-        this.allPiece.add(new KnightWhite(null, Position.c1, 3));
-        this.allPiece.add(new BisShopWhite(null, Position.e2, 3));
-        this.allPiece.add(new PawnBlack(null, Position.b3, 1));
-        this.allPiece.add(new PawnBlack(null, Position.c6, 1));
+        this.allPiece.add(new RookWhite(null, Position.h1, 5));
+        this.allPiece.add(new KnightWhite(null, Position.b1, 3));
+        this.allPiece.add(new KnightWhite(null, Position.g1, 3));
+        this.allPiece.add(new BisShopWhite(null, Position.c1, 3));
+        this.allPiece.add(new BisShopWhite(null, Position.f1, 3));
+        this.allPiece.add(new QueenWhite(null, Position.d1, 9));
+        this.allPiece.add(new PawnWhite(null, Position.a2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.b2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.c2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.d2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.e2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.f2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.g2, 1));
+        this.allPiece.add(new PawnWhite(null, Position.h2, 1));
+
+        this.allPiece.add(new RookBlack(null, Position.a8, 5));
+        this.allPiece.add(new RookBlack(null, Position.h8, 5));
+        this.allPiece.add(new KnightBlack(null, Position.b8, 3));
+        this.allPiece.add(new KnightBlack(null, Position.g8, 3));
+        this.allPiece.add(new BisShopBlack(null, Position.c8, 3));
+        this.allPiece.add(new BisShopBlack(null, Position.f8, 3));
+        this.allPiece.add(new QueenBlack(null, Position.d8, 9));
+        this.allPiece.add(new PawnBlack(null, Position.a7, 1));
         this.allPiece.add(new PawnBlack(null, Position.b7, 1));
-        this.allPiece.add(new QueenWhite(null, Position.e1, 9));
+        this.allPiece.add(new PawnBlack(null, Position.c7, 1));
+        this.allPiece.add(new PawnBlack(null, Position.d7, 1));
+        this.allPiece.add(new PawnBlack(null, Position.e7, 1));
+        this.allPiece.add(new PawnBlack(null, Position.f7, 1));
+        this.allPiece.add(new PawnBlack(null, Position.g7, 1));
+        this.allPiece.add(new PawnBlack(null, Position.h7, 1));
+
     }
 
     @Override

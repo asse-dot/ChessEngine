@@ -32,7 +32,7 @@ public class PawnWhite extends WhitePiece {
             }
         }
 
-        if(MatrixX + 1 < 8 && MatrixY < 8) {
+        if(MatrixX + 1 < 8 && MatrixY + 1 < 8) {
             if(pieces[MatrixX + 1][MatrixY + 1] != null && pieces[MatrixX + 1][MatrixY + 1] instanceof BlackPiece) {
                 this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
                 this.captureMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
@@ -43,6 +43,12 @@ public class PawnWhite extends WhitePiece {
             if(pieces[MatrixX - 1][MatrixY + 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof BlackPiece) {
                 this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
                 this.captureMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+            }
+        }
+
+        if(MatrixY == 1) {
+            if(pieces[MatrixX][MatrixY + 2] == null) {
+                this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 2));
             }
         }
 

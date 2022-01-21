@@ -11,8 +11,14 @@ public class MyMouseAdapter extends MouseAdapter {
 
      @Override
      public void mouseClicked(MouseEvent e) {
-         Position position = new Location(e.getX(), e.getY()).getPosition();
-        Piece piece = position.getPiece();
+         Position position;
+         try {
+             position = new Location(e.getX(), e.getY()).getPosition();
+         } catch(Exception exception) {
+             return;
+         }
+         Piece piece = position.getPiece();
+         boolean mossCaptured = false;
 
         if(GameFrame.getGamePanel().selectedPiece != null) {
             if(GameFrame.getGamePanel().selectedPiece.getLegalMoss().contains(position)) {
@@ -21,11 +27,19 @@ public class MyMouseAdapter extends MouseAdapter {
                         PawnWhite pawnWhite = (PawnWhite) GameFrame.getGamePanel().selectedPiece;
                         if(pawnWhite.getCaptureMoss().contains(position)) {
                             GameFrame.getGamePanel().removePiece(piece);
+                            mossCaptured = true;
+                        }
+                    } else {
+                        PawnBlack pawnBlack = (PawnBlack) GameFrame.getGamePanel().selectedPiece;
+                        if(pawnBlack.getCaptureMoss().contains(position)) {
+                            GameFrame.getGamePanel().removePiece(piece);
+                            mossCaptured = true;
                         }
                     }
                 } else {
                     if (piece != null) {
                         GameFrame.getGamePanel().removePiece(piece);
+                        mossCaptured = true;
                     }
                 }
                for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
@@ -40,7 +54,7 @@ public class MyMouseAdapter extends MouseAdapter {
 
         }
 
-        if(piece != null) {
+        if(piece != null && !mossCaptured) {
             GameFrame.getGamePanel().selectedPiece = piece;
             GameFrame.getGamePanel().clearhighlightsMoss();
             GameFrame.getGamePanel().FillLegalMoss();
