@@ -23,7 +23,6 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public List<Position> highlightsMoss = new ArrayList();
 
-    public Graphics g;
     private List<Piece> allPiece = new ArrayList();
 
 
@@ -32,44 +31,17 @@ public class GamePanel extends JPanel implements ActionListener{
         this.setPreferredSize(new Dimension(dimension_x, dimension_y));
         this.setBackground(Color.black);
         this.setFocusable(true);
-        this.startGame();
         this.addMouseListener(new MyMouseAdapter());
         timer = new Timer(DELAY, this);
         timer.start();
+        this.startGame();
+
     }
 
     public void startGame() {
-        this.allPiece.add(new RookWhite(null, Position.a1, 5));
-        this.allPiece.add(new RookWhite(null, Position.h1, 5));
-        this.allPiece.add(new KnightWhite(null, Position.b1, 3));
-        this.allPiece.add(new KnightWhite(null, Position.g1, 3));
-        this.allPiece.add(new BisShopWhite(null, Position.c1, 3));
-        this.allPiece.add(new BisShopWhite(null, Position.f1, 3));
-        this.allPiece.add(new QueenWhite(null, Position.d1, 9));
-        this.allPiece.add(new PawnWhite(null, Position.a2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.b2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.c2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.d2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.e2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.f2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.g2, 1));
-        this.allPiece.add(new PawnWhite(null, Position.h2, 1));
-
-        this.allPiece.add(new RookBlack(null, Position.a8, 5));
-        this.allPiece.add(new RookBlack(null, Position.h8, 5));
-        this.allPiece.add(new KnightBlack(null, Position.b8, 3));
-        this.allPiece.add(new KnightBlack(null, Position.g8, 3));
-        this.allPiece.add(new BisShopBlack(null, Position.c8, 3));
-        this.allPiece.add(new BisShopBlack(null, Position.f8, 3));
-        this.allPiece.add(new QueenBlack(null, Position.d8, 9));
-        this.allPiece.add(new PawnBlack(null, Position.a7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.b7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.c7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.d7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.e7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.f7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.g7, 1));
-        this.allPiece.add(new PawnBlack(null, Position.h7, 1));
+        this.allPiece.add(new QueenBlack(null, Position.h8, 9));
+        this.allPiece.add(new QueenWhite(null, Position.b2, 9));
+        this.allPiece.add(new KingWhite(null, Position.a1, Integer.MAX_VALUE));
 
     }
 
@@ -77,7 +49,6 @@ public class GamePanel extends JPanel implements ActionListener{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.draw(g);
-        this.g = g;
     }
 
     public void draw(Graphics g) {

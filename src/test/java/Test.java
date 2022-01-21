@@ -4,5 +4,6 @@ public class Test {
 
 
         System.out.println(persona instanceof Persona);
+
     }
 }

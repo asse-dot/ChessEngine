@@ -1,6 +1,10 @@
 package me.asse.chessengine.game.pieces.material;
 
+import me.asse.chessengine.game.Board;
+import me.asse.chessengine.game.GameFrame;
 import me.asse.chessengine.game.Position;
+import me.asse.chessengine.game.pieces.BlackPiece;
+import me.asse.chessengine.game.pieces.Piece;
 import me.asse.chessengine.game.pieces.WhitePiece;
 
 import java.awt.image.BufferedImage;
@@ -13,6 +17,86 @@ public class KingWhite extends WhitePiece {
 
     @Override
     public void setLegalMoss() {
+        this.legalMoss.clear();
+        int MatrixX = this.position.getMatrixX();
+        int MatrixY = this.position.getMatrixY();
+        int position_x, position_y;
+        boolean passed = true;
+
+        Piece[][] pieces = Board.initBoard();
+
+        if(MatrixX + 1 < 8) {
+            if(!(pieces[MatrixX + 1][MatrixY] != null && pieces[MatrixX + 1][MatrixY] instanceof WhitePiece)) {
+                for (Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+                    if (piece instanceof BlackPiece) {
+                        if (piece.getLegalMoss().contains(Board.getPosition(MatrixX + 1, MatrixY))) {
+                            passed = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (passed) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY));
+                }
+            }
+        }
+
+        passed = true;
+        if(MatrixX - 1 >= 0) {
+            if(!(pieces[MatrixX - 1][MatrixY] != null && pieces[MatrixX - 1][MatrixY] instanceof WhitePiece)) {
+
+                for (Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+                    if (piece instanceof BlackPiece) {
+                        if (piece.getLegalMoss().contains(Board.getPosition(MatrixX - 1, MatrixY))) {
+                            passed = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (passed) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY));
+                }
+            }
+        }
+
+        passed = true;
+        if(MatrixY + 1 <  8) {
+            if(!(pieces[MatrixX][MatrixY + 1] != null && pieces[MatrixX][MatrixY + 1] instanceof WhitePiece)) {
+
+                for (Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+                    if (piece instanceof BlackPiece) {
+                        if (piece.getLegalMoss().contains(Board.getPosition(MatrixX, MatrixY + 1))) {
+                            passed = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (passed) {
+                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+                }
+            }
+        }
+
+        passed = true;
+        if(MatrixY - 1 >=  0) {
+            if(!(pieces[MatrixX][MatrixY - 1] != null && pieces[MatrixX][MatrixY - 1] instanceof WhitePiece)) {
+                for (Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+                    if (piece instanceof BlackPiece) {
+                        if (piece.getLegalMoss().contains(Board.getPosition(MatrixX, MatrixY - 1))) {
+                            passed = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (passed) {
+                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - 1));
+                }
+            }
+        }
 
     }
 }

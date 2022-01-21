@@ -46,6 +46,7 @@ public class MyMouseAdapter extends MouseAdapter {
                    if(this_piece == GameFrame.getGamePanel().selectedPiece) {
                        this_piece.setPosition(position);
                        GameFrame.getGamePanel().selectedPiece = null;
+                       GameFrame.getGamePanel().FillLegalMoss();
                        GameFrame.getGamePanel().clearhighlightsMoss();
                    }
                }
@@ -56,8 +57,8 @@ public class MyMouseAdapter extends MouseAdapter {
 
         if(piece != null && !mossCaptured) {
             GameFrame.getGamePanel().selectedPiece = piece;
-            GameFrame.getGamePanel().clearhighlightsMoss();
             GameFrame.getGamePanel().FillLegalMoss();
+            GameFrame.getGamePanel().clearhighlightsMoss();
             for (Position this_position : piece.getLegalMoss()) {
                 GameFrame.getGamePanel().addhighlightsMoss(this_position);
             }
