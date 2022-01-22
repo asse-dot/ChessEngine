@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void startGame() {
         this.allPiece.add(new QueenBlack(null, Position.h8, 9));
-        this.allPiece.add(new RookBlack(null, Position.g8, 5));
+        this.allPiece.add(new RookWhite(null, Position.g8, 5));
         this.allPiece.add(new KingWhite(null, Position.a1, Integer.MAX_VALUE));
 
     }

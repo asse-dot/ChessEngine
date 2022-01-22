@@ -26,10 +26,10 @@ public class KingWhite extends WhitePiece {
 
         if(MatrixX + 1 < 8) {
             if(!(pieces[MatrixX + 1][MatrixY] != null && pieces[MatrixX + 1][MatrixY] instanceof WhitePiece)) {
-                pieces[MatrixX][MatrixY + 1] = pieces[MatrixX][MatrixY];
+                pieces[MatrixX + 1][MatrixY] = pieces[MatrixX][MatrixY];
                 pieces[MatrixX][MatrixY] = null;
                 for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
-                    if(this_piece instanceof KingWhite) {
+                    if(this_piece instanceof WhitePiece) {
                         continue;
                     }
 
@@ -51,13 +51,14 @@ public class KingWhite extends WhitePiece {
             }
         }
 
+        pieces = Board.initBoard();
         passed = true;
         if(MatrixX - 1 >= 0) {
             if(!(pieces[MatrixX - 1][MatrixY] != null && pieces[MatrixX - 1][MatrixY] instanceof WhitePiece)) {
-                pieces[MatrixX][MatrixY + 1] = pieces[MatrixX][MatrixY];
+                pieces[MatrixX - 1][MatrixY] = pieces[MatrixX][MatrixY];
                 pieces[MatrixX][MatrixY] = null;
                 for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
-                    if(this_piece instanceof KingWhite) {
+                    if(this_piece instanceof WhitePiece) {
                         continue;
                     }
 
@@ -75,17 +76,17 @@ public class KingWhite extends WhitePiece {
                 if (passed) {
                     this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY));
                 }
-                pieces = Board.initBoard();
             }
         }
 
+        pieces = Board.initBoard();
         passed = true;
         if(MatrixY + 1 <  8) {
             if(!(pieces[MatrixX][MatrixY + 1] != null && pieces[MatrixX][MatrixY + 1] instanceof WhitePiece)) {
                 pieces[MatrixX][MatrixY + 1] = pieces[MatrixX][MatrixY];
                 pieces[MatrixX][MatrixY] = null;
                 for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
-                    if(this_piece instanceof KingWhite) {
+                    if(this_piece instanceof WhitePiece) {
                         continue;
                     }
 
@@ -104,17 +105,17 @@ public class KingWhite extends WhitePiece {
                     this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
                 }
 
-                pieces = Board.initBoard();
             }
         }
 
+        pieces = Board.initBoard();
         passed = true;
         if(MatrixY - 1 >=  0) {
             if(!(pieces[MatrixX][MatrixY - 1] != null && pieces[MatrixX][MatrixY - 1] instanceof WhitePiece)) {
-                pieces[MatrixX][MatrixY + 1] = pieces[MatrixX][MatrixY];
+                pieces[MatrixX][MatrixY - 1] = pieces[MatrixX][MatrixY];
                 pieces[MatrixX][MatrixY] = null;
                 for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
-                    if(this_piece instanceof KingWhite) {
+                    if(this_piece instanceof WhitePiece) {
                         continue;
                     }
 
@@ -132,7 +133,6 @@ public class KingWhite extends WhitePiece {
                 if (passed) {
                     this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - 1));
                 }
-                pieces = Board.initBoard();
             }
         }
     }

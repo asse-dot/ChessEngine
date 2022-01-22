@@ -23,8 +23,8 @@ public class Location {
             int MatrixX = position.getMatrixX();
             int MatrixY = position.getMatrixY();
 
-            if(this.x > MatrixX * 75 && this.x  < (MatrixX + 1) * 75) {
-                if(this.y < 600 - MatrixY * 75 && this.y > 600 - (MatrixY + 1) * 75) {
+            if(this.x >= MatrixX * 75 && this.x  <= (MatrixX + 1) * 75) {
+                if(this.y <= 600 - MatrixY * 75 && this.y >= 600 - (MatrixY + 1) * 75) {
                     return position;
                 }
             }

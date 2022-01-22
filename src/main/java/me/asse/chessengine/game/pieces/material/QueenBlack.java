@@ -60,7 +60,6 @@ public class QueenBlack extends BlackPiece {
             if(MatrixX - x < 0) {
                 break;
             }
-
             if(pieces[MatrixX - x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - x, MatrixY));
             } else {
