@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void startGame() {
         this.allPiece.add(new QueenBlack(null, Position.h8, 9));
-        this.allPiece.add(new QueenWhite(null, Position.b2, 9));
+        this.allPiece.add(new RookBlack(null, Position.g8, 5));
         this.allPiece.add(new KingWhite(null, Position.a1, Integer.MAX_VALUE));
 
     }
@@ -97,10 +97,9 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
-    public void FillLegalMoss() {
-        for(Piece piece : this.allPiece) {
-            piece.setLegalMoss();
-        }
+    public void createLegalMoss(Piece piece) {
+        Piece[][] pieces = Board.initBoard();
+        piece.setLegalMoss(pieces);
     }
 
     public void removePiece(Piece piece) {
@@ -112,7 +111,7 @@ public class GamePanel extends JPanel implements ActionListener{
             return;
         }
         removePiece(pawn);
-        this.allPiece.add(new QueenWhite(null, pawn.getPosition(), 5));
+        this.allPiece.add(new QueenWhite(null, pawn.getPosition(), 9));
     }
 
     public void addhighlightsMoss(Position p) {

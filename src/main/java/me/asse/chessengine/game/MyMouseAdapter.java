@@ -45,19 +45,17 @@ public class MyMouseAdapter extends MouseAdapter {
                for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
                    if(this_piece == GameFrame.getGamePanel().selectedPiece) {
                        this_piece.setPosition(position);
-                       GameFrame.getGamePanel().selectedPiece = null;
-                       GameFrame.getGamePanel().FillLegalMoss();
-                       GameFrame.getGamePanel().clearhighlightsMoss();
                    }
                }
             }
 
-
+            GameFrame.getGamePanel().selectedPiece = null;
+            GameFrame.getGamePanel().clearhighlightsMoss();
         }
 
         if(piece != null && !mossCaptured) {
             GameFrame.getGamePanel().selectedPiece = piece;
-            GameFrame.getGamePanel().FillLegalMoss();
+            GameFrame.getGamePanel().createLegalMoss(piece);
             GameFrame.getGamePanel().clearhighlightsMoss();
             for (Position this_position : piece.getLegalMoss()) {
                 GameFrame.getGamePanel().addhighlightsMoss(this_position);

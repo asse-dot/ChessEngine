@@ -18,13 +18,13 @@ public class PawnBlack extends BlackPiece {
         super(img, initial_position, point);
     }
 
+
     @Override
-    public void setLegalMoss() {
+    public void setLegalMoss(Piece[][] pieces) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
 
-        Piece[][] pieces = Board.initBoard();
 
         if(MatrixY - 1 >= 0) {
             if(pieces[MatrixX][MatrixY - 1] == null) {

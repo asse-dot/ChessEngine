@@ -14,13 +14,13 @@ public class BisShopBlack extends BlackPiece {
         super(img, initial_position, point);
     }
 
+
+
     @Override
-    public void setLegalMoss() {
+    public void setLegalMoss(Piece[][] pieces) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
-
-        Piece[][] pieces = Board.initBoard();
 
         for(int n = 1; n < 8; n++) {
             if(MatrixX + n > 7 || MatrixY + n > 7) {
@@ -89,6 +89,5 @@ public class BisShopBlack extends BlackPiece {
                 }
             }
         }
-
     }
 }

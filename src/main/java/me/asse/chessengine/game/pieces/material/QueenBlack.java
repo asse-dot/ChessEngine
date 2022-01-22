@@ -14,13 +14,13 @@ public class QueenBlack extends BlackPiece {
         super(img, initial_position, point);
     }
 
+
     @Override
-    public void setLegalMoss() {
+    public void setLegalMoss(Piece[][] pieces) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
 
-        Piece[][] pieces = Board.initBoard();
 
         for(int x = 1; x<8; x++) {
             if(MatrixX + x > 7) {

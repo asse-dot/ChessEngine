@@ -25,6 +25,7 @@ public class Board {
         return pieces;
     }
 
+
     public static void drawPiece(Graphics g, Piece p) {
         g.fillOval(p.getPosition().getMatrixX() * 75, 600 - (p.getPosition().getMatrixY() + 1) * 75, 75, 75);
     }

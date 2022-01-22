@@ -14,13 +14,13 @@ public class KnightBlack extends BlackPiece {
         super(img, initial_position, point);
     }
 
+
     @Override
-    public void setLegalMoss() {
+    public void setLegalMoss(Piece[][] pieces) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
 
-        Piece[][] pieces = Board.initBoard();
         if (MatrixX + 1 < 8 && MatrixY + 2 < 8) {
             if (pieces[MatrixX + 1][MatrixY + 2] == null || (pieces[MatrixX + 1][MatrixY + 2] != null && pieces[MatrixX + 1][MatrixY + 2] instanceof WhitePiece)) {
                 this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 2));
