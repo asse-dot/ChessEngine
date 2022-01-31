@@ -40,12 +40,14 @@ public class MyMouseAdapter extends MouseAdapter {
                for(Piece this_piece : GameFrame.getGamePanel().getAllPiece()) {
                    if(this_piece == GameFrame.getGamePanel().selectedPiece) {
                        this_piece.setPosition(position);
+                       Board.see_status_game();
                    }
                }
             }
 
             GameFrame.getGamePanel().selectedPiece = null;
             GameFrame.getGamePanel().clearhighlightsMoss();
+
         }
 
         if(piece != null && !mossCaptured) {

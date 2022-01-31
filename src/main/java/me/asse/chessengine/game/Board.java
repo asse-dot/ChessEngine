@@ -12,6 +12,8 @@ import java.awt.*;
 
 public class Board {
 
+    public static GameStatus gameStatus;
+
     public static Position getPosition(int x, int y) {
         for (Position position : Position.values()) {
             if (position.getMatrixX() == x && position.getMatrixY() == y) {
@@ -20,6 +22,8 @@ public class Board {
         }
         return null;
     }
+
+
 
     public static Piece[][] initBoard() {
         Piece[][] pieces = new Piece[65][65];
@@ -166,7 +170,81 @@ public class Board {
         return false;
     }
 
+    public static void see_status_game() {
+        if(check_win_white()) {
+            gameStatus = GameStatus.VICTORY_WHITE;
+            return;
+        }
 
+        if(check_win_black()) {
+            gameStatus = GameStatus.VICTORY_BLACK;
+            return;
+        }
+
+        if(check_draw_insufficient_material()) {
+            gameStatus = GameStatus.DRAW_FOR_INSUFFICIENT_MATERIAL;
+            return;
+        }
+
+        if(check_draw_stall()) {
+            gameStatus = GameStatus.DRAW_FOR_STALL;
+            return;
+        }
+    }
+
+    private static boolean check_win_white() {
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            GameFrame.getGamePanel().createLegalMoss(piece);
+            if(piece instanceof BlackPiece) {
+                if(piece.getLegalMoss().size() != 0) {
+                    return false;
+                }
+            }
+        }
+
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            if(piece instanceof WhitePiece) {
+                for(Position position : piece.getLegalMoss()) {
+                    if(position == GameFrame.getGamePanel().getKingBlack().getPosition()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean check_win_black() {
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            GameFrame.getGamePanel().createLegalMoss(piece);
+            if(piece instanceof WhitePiece) {
+                if(piece.getLegalMoss().size() != 0) {
+                    return false;
+                }
+            }
+        }
+
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            if(piece instanceof BlackPiece) {
+                for(Position position : piece.getLegalMoss()) {
+                    if(position == GameFrame.getGamePanel().getKingWhite().getPosition()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean check_draw_insufficient_material() {
+
+        return false;
+    }
+
+    private static boolean check_draw_stall() {
+        return false;
+    }
 }
 
 
