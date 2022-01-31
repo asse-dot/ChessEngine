@@ -20,155 +20,95 @@ public class RookWhite extends WhitePiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
-        boolean passed = true;
 
-        for(int x = 1; x<8; x++) {
-            if(MatrixX + x > 7) {
+        for (int x = 1; x < 8; x++) {
+            if (MatrixX + x > 7) {
                 break;
             }
-            pieces[MatrixX + x][MatrixY] = pieces[MatrixX][MatrixY];
-            pieces[MatrixX][MatrixY] = null;
 
-            for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-                if(piece instanceof WhitePiece) {
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, x, 0)) {
                     continue;
                 }
-                piece.setLegalMoss(pieces);
-                for(Position position : piece.getLegalMoss()) {
-                    if(pieces[position.getMatrixX()][position.getMatrixY()] instanceof KingWhite) {
-                        passed = false;
-                    }
-                }
             }
-            if(!passed) {
-                break;
-            }
-            pieces = Board.initBoard();
-            if(pieces[MatrixX + x][MatrixY] == null) {
+            if (pieces[MatrixX + x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX + x, MatrixY));
             } else {
-                if(pieces[MatrixX + x][MatrixY] instanceof WhitePiece) {
+                if (pieces[MatrixX + x][MatrixY] instanceof WhitePiece) {
                     break;
-                } else if(pieces[MatrixX + x][MatrixY] instanceof BlackPiece) {
+                } else if (pieces[MatrixX + x][MatrixY] instanceof BlackPiece) {
                     this.legalMoss.add(Board.getPosition(MatrixX + x, MatrixY));
                     break;
                 }
             }
         }
-
-        passed = true;
-        for(int y = 1; y<8; y++) {
-            if(MatrixY + y > 7) {
+        for (int y = 1; y < 8; y++) {
+            if (MatrixY + y > 7) {
                 break;
             }
-            pieces[MatrixX][MatrixY + y] = pieces[MatrixX][MatrixY];
-            pieces[MatrixX][MatrixY] = null;
 
-            for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-                if(piece instanceof WhitePiece)  {
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, 0, y)) {
                     continue;
                 }
-                piece.setLegalMoss(pieces);
-                for(Position position : piece.getLegalMoss()) {
-                    if(pieces[position.getMatrixX()][position.getMatrixY()] instanceof KingWhite) {
-                        passed = false;
-                    }
-                }
             }
 
-            if(!passed) {
-                break;
-            }
-            pieces = Board.initBoard();
-            if(pieces[MatrixX][MatrixY+y] == null) {
+            if (pieces[MatrixX][MatrixY + y] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + y));
             } else {
-                if(pieces[MatrixX][MatrixY + y] instanceof WhitePiece) {
+                if (pieces[MatrixX][MatrixY + y] instanceof WhitePiece) {
                     break;
-                } else if(pieces[MatrixX][MatrixY + y] instanceof BlackPiece) {
+                } else if (pieces[MatrixX][MatrixY + y] instanceof BlackPiece) {
                     this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + y));
                     break;
                 }
             }
         }
-
-        passed = true;
-        for(int x = 1; x<8; x++) {
-            if(MatrixX - x < 0) {
+        for (int x = 1; x < 8; x++) {
+            if (MatrixX - x < 0) {
                 break;
             }
-            pieces[MatrixX - x][MatrixY] = pieces[MatrixX][MatrixY];
-            pieces[MatrixX][MatrixY] = null;
 
-            for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-                if(piece instanceof WhitePiece)  {
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -x, 0)) {
                     continue;
                 }
-                piece.setLegalMoss(pieces);
-                for(Position position : piece.getLegalMoss()) {
-                    if(pieces[position.getMatrixX()][position.getMatrixY()] instanceof KingWhite) {
-                        passed = false;
-                    }
-                }
             }
-
-            if(!passed) {
-                break;
-            }
-            pieces = Board.initBoard();
-            if(pieces[MatrixX - x][MatrixY] == null) {
+            if (pieces[MatrixX - x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - x, MatrixY));
             } else {
-                if(pieces[MatrixX - x][MatrixY] instanceof WhitePiece) {
+                if (pieces[MatrixX - x][MatrixY] instanceof WhitePiece) {
                     break;
-                } else if(pieces[MatrixX - x][MatrixY] instanceof BlackPiece) {
+                } else if (pieces[MatrixX - x][MatrixY] instanceof BlackPiece) {
                     this.legalMoss.add(Board.getPosition(MatrixX - x, MatrixY));
                     break;
-                }
-            }
-        }
-
-        passed = true;
-        for(int y = 1; y<8; y++) {
-            passed = true;
-            pieces = Board.initBoard();
-            if(MatrixY - y < 0) {
-                break;
-            }
-            pieces[MatrixX][MatrixY - y] = pieces[MatrixX][MatrixY];
-            pieces[MatrixX][MatrixY] = null;
-            for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-                if(piece instanceof WhitePiece)  {
-                    continue;
-                }
-                piece.setLegalMoss(pieces);
-                for(Position position : piece.getLegalMoss()) {
-                    if(pieces[position.getMatrixX()][position.getMatrixY()] instanceof KingWhite) {
-                        passed = false;
                     }
                 }
             }
-
-            if(!passed) {
-               continue;
-            }
-            pieces = Board.initBoard();
-            if(pieces[MatrixX][MatrixY-y] == null) {
-                this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - y));
-            } else {
-                if(pieces[MatrixX][MatrixY - y] instanceof WhitePiece) {
-                    break;
-                } else if(pieces[MatrixX][MatrixY - y] instanceof BlackPiece) {
-                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - y));
+            for (int y = 1; y < 8; y++) {
+                if (MatrixY - y < 0) {
                     break;
                 }
+
+                if(!isChecking) {
+                    if (Board.isIllegalMove(pieces, this, 0, -y)) {
+                        continue;
+                    }
+                }
+                if (pieces[MatrixX][MatrixY - y] == null) {
+                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - y));
+                } else {
+                    if (pieces[MatrixX][MatrixY - y] instanceof WhitePiece) {
+                        break;
+                    } else if (pieces[MatrixX][MatrixY - y] instanceof BlackPiece) {
+                        this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - y));
+                        break;
+                    }
+                }
             }
-        }
-
-
     }
 }

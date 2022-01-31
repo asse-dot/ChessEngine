@@ -20,7 +20,7 @@ public abstract class Piece {
         this.point = point;
     }
 
-    public abstract void setLegalMoss(Piece[][] pieces);
+    public abstract void setLegalMoss(Piece[][] pieces, boolean isChecking);
 
     public void setPosition(Position position) {
         this.position = position;

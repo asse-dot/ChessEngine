@@ -16,7 +16,7 @@ public class QueenBlack extends BlackPiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
@@ -25,6 +25,12 @@ public class QueenBlack extends BlackPiece {
         for(int x = 1; x<8; x++) {
             if(MatrixX + x > 7) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, x, 0)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX + x][MatrixY] == null) {
@@ -44,6 +50,12 @@ public class QueenBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, 0, y)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX][MatrixY+y] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + y));
             } else {
@@ -60,6 +72,13 @@ public class QueenBlack extends BlackPiece {
             if(MatrixX - x < 0) {
                 break;
             }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -x, 0)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX - x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - x, MatrixY));
             } else {
@@ -75,6 +94,12 @@ public class QueenBlack extends BlackPiece {
         for(int y = 1; y<8; y++) {
             if(MatrixY - y < 0) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, 0, -y)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX][MatrixY-y] == null) {
@@ -94,6 +119,12 @@ public class QueenBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, n)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX + n][MatrixY + n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX + n, MatrixY + n));
             } else {
@@ -109,6 +140,12 @@ public class QueenBlack extends BlackPiece {
         for(int n = 1; n<8; n++) {
             if(MatrixX - n < 0 || MatrixY + n > 7) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, n)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX - n][MatrixY + n] == null) {
@@ -128,6 +165,12 @@ public class QueenBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, -n)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX - n][MatrixY - n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - n, MatrixY - n));
             } else {
@@ -143,6 +186,12 @@ public class QueenBlack extends BlackPiece {
         for(int n = 1; n<8; n++) {
             if(MatrixX + n > 7 || MatrixY - n < 0) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, -n)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX + n][MatrixY - n] == null) {

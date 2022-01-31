@@ -11,12 +11,7 @@ public class MyMouseAdapter extends MouseAdapter {
 
      @Override
      public void mouseClicked(MouseEvent e) {
-         Position position;
-         try {
-             position = new Location(e.getX(), e.getY()).getPosition();
-         } catch(Exception exception) {
-             return;
-         }
+         Position position = new Location(e.getX(), e.getY()).getPosition();
          Piece piece = position.getPiece();
          boolean mossCaptured = false;
 

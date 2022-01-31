@@ -17,7 +17,7 @@ public class BisShopBlack extends BlackPiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
@@ -25,6 +25,12 @@ public class BisShopBlack extends BlackPiece {
         for(int n = 1; n < 8; n++) {
             if(MatrixX + n > 7 || MatrixY + n > 7) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, n)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX + n][MatrixY + n] == null) {
@@ -44,6 +50,12 @@ public class BisShopBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, n)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX - n][MatrixY + n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - n, MatrixY + n));
             } else {
@@ -61,6 +73,12 @@ public class BisShopBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, -n)) {
+                    continue;
+                }
+            }
+
             if(pieces[MatrixX - n][MatrixY - n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - n, MatrixY - n));
             } else {
@@ -76,6 +94,12 @@ public class BisShopBlack extends BlackPiece {
         for(int n = 1; n<8; n++) {
             if(MatrixX + n > 7 || MatrixY - n < 0) {
                 break;
+            }
+
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, -n)) {
+                    continue;
+                }
             }
 
             if(pieces[MatrixX + n][MatrixY - n] == null) {

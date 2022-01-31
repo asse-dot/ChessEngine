@@ -16,7 +16,7 @@ public class RookBlack extends BlackPiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
@@ -27,6 +27,11 @@ public class RookBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, x, 0)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX + x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX + x, MatrixY));
             } else {
@@ -44,6 +49,11 @@ public class RookBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, 0, y)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX][MatrixY+y] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + y));
             } else {
@@ -61,6 +71,11 @@ public class RookBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -x, 0)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX - x][MatrixY] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - x, MatrixY));
             } else {
@@ -78,6 +93,11 @@ public class RookBlack extends BlackPiece {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, 0, -y)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX][MatrixY-y] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX, MatrixY - y));
             } else {

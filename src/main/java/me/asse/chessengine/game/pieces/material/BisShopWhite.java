@@ -16,17 +16,21 @@ public class BisShopWhite extends WhitePiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
-
 
         for(int n = 1; n < 8; n++) {
             if(MatrixX + n > 7 || MatrixY + n > 7) {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, n)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX + n][MatrixY + n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX + n, MatrixY + n));
             } else {
@@ -38,12 +42,16 @@ public class BisShopWhite extends WhitePiece {
                 }
             }
         }
-
         for(int n = 1; n<8; n++) {
             if(MatrixX - n < 0 || MatrixY + n > 7) {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, n)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX - n][MatrixY + n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - n, MatrixY + n));
             } else {
@@ -55,12 +63,16 @@ public class BisShopWhite extends WhitePiece {
                 }
             }
         }
-
         for(int n = 1; n<8; n++) {
             if(MatrixX - n < 0 || MatrixY - n < 0) {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, -n, -n)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX - n][MatrixY - n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX - n, MatrixY - n));
             } else {
@@ -72,12 +84,16 @@ public class BisShopWhite extends WhitePiece {
                 }
             }
         }
-
         for(int n = 1; n<8; n++) {
             if(MatrixX + n > 7 || MatrixY - n < 0) {
                 break;
             }
 
+            if(!isChecking) {
+                if (Board.isIllegalMove(pieces, this, n, -n)) {
+                    continue;
+                }
+            }
             if(pieces[MatrixX + n][MatrixY - n] == null) {
                 this.legalMoss.add(Board.getPosition(MatrixX + n, MatrixY - n));
             } else {

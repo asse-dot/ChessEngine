@@ -20,35 +20,70 @@ public class PawnWhite extends WhitePiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
 
-
-        if(MatrixY + 1 < 8) {
-            if (pieces[MatrixX][MatrixY + 1] == null) {
-                this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+        if(!isChecking) {
+            if (MatrixY + 1 < 8) {
+                if(!Board.isIllegalMove(pieces, this, 0, 1)) {
+                    if (pieces[MatrixX][MatrixY + 1] == null) {
+                        this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+                    }
+                }
             }
-        }
 
-        if(MatrixX + 1 < 8 && MatrixY + 1 < 8) {
-            if(pieces[MatrixX + 1][MatrixY + 1] != null && pieces[MatrixX + 1][MatrixY + 1] instanceof BlackPiece) {
-                this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
-                this.captureMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
+            if (MatrixX + 1 < 8 && MatrixY + 1 < 8) {
+                if(!Board.isIllegalMove(pieces, this, 1, 1)) {
+                    if (pieces[MatrixX + 1][MatrixY + 1] != null && pieces[MatrixX + 1][MatrixY + 1] instanceof BlackPiece) {
+                        this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
+                        this.captureMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
+                    }
+                }
             }
-        }
 
-        if(MatrixX - 1 >= 0 && MatrixY + 1 < 8) {
-            if(pieces[MatrixX - 1][MatrixY + 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof BlackPiece) {
-                this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
-                this.captureMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+            if (MatrixX - 1 >= 0 && MatrixY + 1 < 8) {
+                if(!Board.isIllegalMove(pieces, this, -1, 1)) {
+                    if (pieces[MatrixX - 1][MatrixY + 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof BlackPiece) {
+                        this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+                        this.captureMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+                    }
+                }
             }
-        }
 
-        if(MatrixY == 1) {
-            if(pieces[MatrixX][MatrixY + 2] == null) {
-                this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 2));
+            if (MatrixY == 1) {
+                if(!Board.isIllegalMove(pieces, this, 0, 2)) {
+                    if (pieces[MatrixX][MatrixY + 2] == null) {
+                        this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 2));
+                    }
+                }
+            }
+        } else {
+            if (MatrixY + 1 < 8) {
+                if (pieces[MatrixX][MatrixY + 1] == null) {
+                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
+                }
+            }
+
+            if (MatrixX + 1 < 8 && MatrixY + 1 < 8) {
+                if (pieces[MatrixX + 1][MatrixY + 1] != null && pieces[MatrixX + 1][MatrixY + 1] instanceof BlackPiece) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
+                    this.captureMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 1));
+                }
+            }
+
+            if (MatrixX - 1 >= 0 && MatrixY + 1 < 8) {
+                if (pieces[MatrixX - 1][MatrixY + 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof BlackPiece) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+                    this.captureMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 1));
+                }
+            }
+
+            if (MatrixY == 1) {
+                if (pieces[MatrixX][MatrixY + 2] == null) {
+                    this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 2));
+                }
             }
         }
 

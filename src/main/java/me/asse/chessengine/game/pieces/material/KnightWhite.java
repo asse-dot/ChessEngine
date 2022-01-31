@@ -16,56 +16,115 @@ public class KnightWhite extends WhitePiece {
 
 
     @Override
-    public void setLegalMoss(Piece[][] pieces) {
+    public void setLegalMoss(Piece[][] pieces, boolean isChecking) {
         this.legalMoss.clear();
         int MatrixX = this.position.getMatrixX();
         int MatrixY = this.position.getMatrixY();
 
-        if (MatrixX + 1 < 8 && MatrixY + 2 < 8) {
-            if (pieces[MatrixX + 1][MatrixY + 2] == null || (pieces[MatrixX + 1][MatrixY + 2] != null && pieces[MatrixX + 1][MatrixY + 2] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 2));
+        if (!isChecking) {
+            if (MatrixX + 1 < 8 && MatrixY + 2 < 8) {
+                if (!Board.isIllegalMove(pieces, this, 1, 2)) {
+                    if (pieces[MatrixX + 1][MatrixY + 2] == null || (pieces[MatrixX + 1][MatrixY + 2] != null && pieces[MatrixX + 1][MatrixY + 2] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 2));
+                    }
+                }
             }
-        }
-
-        if (MatrixX - 1 >= 0 && MatrixY + 2 < 8) {
-            if (pieces[MatrixX - 1][MatrixY + 2] == null || (pieces[MatrixX - 1][MatrixY + 2] != null && pieces[MatrixX - 1][MatrixY + 2] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 2));
+            if (MatrixX - 1 >= 0 && MatrixY + 2 < 8) {
+                if (!Board.isIllegalMove(pieces, this, -1, 2)) {
+                    if (pieces[MatrixX - 1][MatrixY + 2] == null || (pieces[MatrixX - 1][MatrixY + 2] != null && pieces[MatrixX - 1][MatrixY + 2] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 2));
+                    }
+                }
             }
-        }
-
-        if (MatrixX + 1 < 8 && MatrixY - 2 >= 0) {
-            if (pieces[MatrixX + 1][MatrixY - 2] == null || (pieces[MatrixX + 1][MatrixY - 2] != null && pieces[MatrixX + 1][MatrixY - 2] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY - 2));
+            if (MatrixX + 1 < 8 && MatrixY - 2 >= 0) {
+                if (!Board.isIllegalMove(pieces, this, 1, -2)) {
+                    if (pieces[MatrixX + 1][MatrixY - 2] == null || (pieces[MatrixX + 1][MatrixY - 2] != null && pieces[MatrixX + 1][MatrixY - 2] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY - 2));
+                    }
+                }
             }
-        }
-
-        if(MatrixX - 1 >= 0 && MatrixY - 2 >= 0) {
-            if (pieces[MatrixX - 1][MatrixY - 2] == null || (pieces[MatrixX - 1][MatrixY - 2] != null && pieces[MatrixX - 1][MatrixY - 2] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY - 2));
+            if (MatrixX - 1 >= 0 && MatrixY - 2 >= 0) {
+                if (!Board.isIllegalMove(pieces, this, -1, -2)) {
+                    if (pieces[MatrixX - 1][MatrixY - 2] == null || (pieces[MatrixX - 1][MatrixY - 2] != null && pieces[MatrixX - 1][MatrixY - 2] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY - 2));
+                    }
+                }
             }
-        }
-
-        if(MatrixX + 2 < 8 && MatrixY + 1 < 8) {
-            if (pieces[MatrixX + 2][MatrixY + 1] == null || (pieces[MatrixX + 2][MatrixY + 1] != null && pieces[MatrixX + 2][MatrixY + 1] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY + 1));
+            if (MatrixX + 2 < 8 && MatrixY + 1 < 8) {
+                if (!Board.isIllegalMove(pieces, this, 2, 1)) {
+                    if (pieces[MatrixX + 2][MatrixY + 1] == null || (pieces[MatrixX + 2][MatrixY + 1] != null && pieces[MatrixX + 2][MatrixY + 1] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY + 1));
+                    }
+                }
             }
-        }
-
-        if(MatrixX - 2 >= 0 && MatrixY + 1 < 8) {
-            if (pieces[MatrixX - 2][MatrixY + 1] == null || (pieces[MatrixX - 2][MatrixY + 1] != null && pieces[MatrixX - 2][MatrixY + 1] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY + 1));
+            if (MatrixX - 2 >= 0 && MatrixY + 1 < 8) {
+                if (!Board.isIllegalMove(pieces, this, -2, 1)) {
+                    if (pieces[MatrixX - 2][MatrixY + 1] == null || (pieces[MatrixX - 2][MatrixY + 1] != null && pieces[MatrixX - 2][MatrixY + 1] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY + 1));
+                    }
+                }
             }
-        }
-
-        if(MatrixX + 2 < 8 && MatrixY - 1 >= 0) {
-            if (pieces[MatrixX + 2][MatrixY - 1] == null || (pieces[MatrixX + 2][MatrixY - 1] != null && pieces[MatrixX + 2][MatrixY - 1] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY - 1));
+            if (MatrixX + 2 < 8 && MatrixY - 1 >= 0) {
+                if (!Board.isIllegalMove(pieces, this, 2, -1)) {
+                    if (pieces[MatrixX + 2][MatrixY - 1] == null || (pieces[MatrixX + 2][MatrixY - 1] != null && pieces[MatrixX + 2][MatrixY - 1] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY - 1));
+                    }
+                }
             }
-        }
+            if (MatrixX - 2 >= 0 && MatrixY - 1 >= 0) {
+                if (!Board.isIllegalMove(pieces, this, -2, -1)) {
+                    if (pieces[MatrixX - 2][MatrixY - 1] == null || (pieces[MatrixX - 2][MatrixY - 1] != null && pieces[MatrixX - 2][MatrixY - 1] instanceof BlackPiece)) {
+                        this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY - 1));
+                    }
+                }
+            }
+        } else {
+            if (MatrixX + 1 < 8 && MatrixY + 2 < 8) {
+                if (pieces[MatrixX + 1][MatrixY + 2] == null || (pieces[MatrixX + 1][MatrixY + 2] != null && pieces[MatrixX + 1][MatrixY + 2] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY + 2));
+                }
+            }
 
-        if(MatrixX - 2 >= 0 && MatrixY - 1 >= 0) {
-            if (pieces[MatrixX - 2][MatrixY - 1] == null || (pieces[MatrixX - 2][MatrixY - 1] != null && pieces[MatrixX - 2][MatrixY - 1] instanceof BlackPiece)) {
-                this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY - 1));
+            if (MatrixX - 1 >= 0 && MatrixY + 2 < 8) {
+                if (pieces[MatrixX - 1][MatrixY + 2] == null || (pieces[MatrixX - 1][MatrixY + 2] != null && pieces[MatrixX - 1][MatrixY + 2] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY + 2));
+                }
+            }
+
+            if (MatrixX + 1 < 8 && MatrixY - 2 >= 0) {
+                if (pieces[MatrixX + 1][MatrixY - 2] == null || (pieces[MatrixX + 1][MatrixY - 2] != null && pieces[MatrixX + 1][MatrixY - 2] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY - 2));
+                }
+            }
+
+            if (MatrixX - 1 >= 0 && MatrixY - 2 >= 0) {
+                if (pieces[MatrixX - 1][MatrixY - 2] == null || (pieces[MatrixX - 1][MatrixY - 2] != null && pieces[MatrixX - 1][MatrixY - 2] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY - 2));
+                }
+            }
+
+            if (MatrixX + 2 < 8 && MatrixY + 1 < 8) {
+                if (pieces[MatrixX + 2][MatrixY + 1] == null || (pieces[MatrixX + 2][MatrixY + 1] != null && pieces[MatrixX + 2][MatrixY + 1] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY + 1));
+                }
+            }
+
+            if (MatrixX - 2 >= 0 && MatrixY + 1 < 8) {
+                if (pieces[MatrixX - 2][MatrixY + 1] == null || (pieces[MatrixX - 2][MatrixY + 1] != null && pieces[MatrixX - 2][MatrixY + 1] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY + 1));
+                }
+            }
+
+            if (MatrixX + 2 < 8 && MatrixY - 1 >= 0) {
+                if (pieces[MatrixX + 2][MatrixY - 1] == null || (pieces[MatrixX + 2][MatrixY - 1] != null && pieces[MatrixX + 2][MatrixY - 1] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX + 2, MatrixY - 1));
+                }
+            }
+
+            if (MatrixX - 2 >= 0 && MatrixY - 1 >= 0) {
+                if (pieces[MatrixX - 2][MatrixY - 1] == null || (pieces[MatrixX - 2][MatrixY - 1] != null && pieces[MatrixX - 2][MatrixY - 1] instanceof BlackPiece)) {
+                    this.legalMoss.add(Board.getPosition(MatrixX - 2, MatrixY - 1));
+                }
             }
         }
     }

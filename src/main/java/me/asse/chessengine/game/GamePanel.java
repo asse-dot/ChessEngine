@@ -39,9 +39,25 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void startGame() {
-        this.allPiece.add(new QueenBlack(null, Position.h8, 9));
-        this.allPiece.add(new RookWhite(null, Position.g8, 5));
-        this.allPiece.add(new KingWhite(null, Position.a1, Integer.MAX_VALUE));
+        this.allPiece.add(new RookBlack(null, Position.a8, 5));
+        this.allPiece.add(new RookBlack(null, Position.h8, 5));
+        this.allPiece.add(new BisShopBlack(null, Position.c8, 3));
+        this.allPiece.add(new BisShopBlack(null, Position.f8, 3));
+        this.allPiece.add(new KnightBlack(null, Position.b8, 3));
+        this.allPiece.add(new KnightBlack(null, Position.g8, 3));
+        this.allPiece.add(new QueenBlack(null, Position.d8, 9));
+        this.allPiece.add(new KingBlack(null, Position.e8, Integer.MAX_VALUE));
+        this.allPiece.add(new PawnBlack(null, Position.f7, 1));
+
+        this.allPiece.add(new RookWhite(null, Position.a1, 5));
+        this.allPiece.add(new RookWhite(null, Position.h1, 5));
+        this.allPiece.add(new BisShopWhite(null, Position.c1, 3));
+        this.allPiece.add(new BisShopWhite(null, Position.f1, 3));
+        this.allPiece.add(new KnightWhite(null, Position.b1, 3));
+        this.allPiece.add(new KnightWhite(null, Position.g1, 3));
+        this.allPiece.add(new QueenWhite(null, Position.d1, 9));
+        this.allPiece.add(new KingWhite(null, Position.e1, Integer.MAX_VALUE));
+
 
     }
 
@@ -53,53 +69,24 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void draw(Graphics g) {
 
-        for(int y = 0; y<8; y++) {
-            for(int x = 0; x<8; x++) {
-                if(y % 2 != 0) {
-                    if(x % 2 != 0) {
-                        g.setColor(Color.WHITE);
-                    }
-                    else {
-                        g.setColor(Color.BLACK);
-                    }
-                } else {
-                    if(x % 2 != 0) {
-                        g.setColor(Color.BLACK);
-                    } else {
-                        g.setColor(Color.WHITE);
-                    }
-                }
-                g.fillRect(x*unitsize_x, y*unitsize_y, unitsize_x, unitsize_y);
-            }
-        }
+        Board.drawBoard(g, unitsize_x, unitsize_y);
 
-        PawnWhite pawn_white_promote = null;
-        PawnBlack pawn_black_promote = null;
         g.setColor(Color.red);
         for(Piece p : this.allPiece) {
-            if(p instanceof PawnWhite) {
-                PawnWhite pawnWhite = (PawnWhite) p;
-                if(p.getPosition().getMatrixY() == 7) {
-                    pawn_white_promote = pawnWhite;
-                }
-            } else if(p instanceof PawnBlack) {
-                PawnBlack pawnBlack = (PawnBlack) p;
-                if(p.getPosition().getMatrixY() == 0) {
-                    pawn_black_promote = pawnBlack;
-                }
-            }
-            Board.drawPiece(g, p);
+            Board.drawPiece(g, p, unitsize_x, unitsize_y);
         }
-        promotePawnWhite(pawn_white_promote);
 
         for(Position p : this.highlightsMoss) {
-            Board.highlightsMoss(g, p);
+            Board.highlightsMoss(g, p, unitsize_x, unitsize_y);
         }
+
+        promotePawnWhite(Board.getPawnWhiteToPromote());
+        promotePawnBlack(Board.getPawnBlackToPromote());
     }
 
     public void createLegalMoss(Piece piece) {
         Piece[][] pieces = Board.initBoard();
-        piece.setLegalMoss(pieces);
+        piece.setLegalMoss(pieces, false);
     }
 
     public void removePiece(Piece piece) {
@@ -112,6 +99,14 @@ public class GamePanel extends JPanel implements ActionListener{
         }
         removePiece(pawn);
         this.allPiece.add(new QueenWhite(null, pawn.getPosition(), 9));
+    }
+
+    public void promotePawnBlack(PawnBlack pawn) {
+        if(pawn == null)  {
+            return;
+        }
+        removePiece(pawn);
+        this.allPiece.add(new QueenBlack(null, pawn.getPosition(), 9));
     }
 
     public void addhighlightsMoss(Position p) {
