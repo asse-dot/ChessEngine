@@ -79,7 +79,7 @@ public class KingWhite extends WhitePiece {
                 }
             }
 
-            if (MatrixX + 1  < 8 && MatrixY - 1 >=  8) {
+            if (MatrixX + 1  < 8 && MatrixY - 1 >=  0) {
                 if (!(pieces[MatrixX + 1][MatrixY - 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof WhitePiece)) {
                     if (!Board.isIllegalMove(pieces, this, 1, -1)) {
                         this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY - 1));
@@ -99,7 +99,7 @@ public class KingWhite extends WhitePiece {
                 }
             }
 
-            if (MatrixY + 1 >= 0) {
+            if (MatrixY + 1 < 8) {
                 if (!(pieces[MatrixX][MatrixY + 1] != null && pieces[MatrixX][MatrixY + 1] instanceof WhitePiece)) {
                     this.legalMoss.add(Board.getPosition(MatrixX, MatrixY + 1));
                 }
@@ -129,7 +129,7 @@ public class KingWhite extends WhitePiece {
                 }
             }
 
-            if (MatrixX + 1  < 8 && MatrixY - 1 >=  8) {
+            if (MatrixX + 1  < 8 && MatrixY - 1 >=  0) {
                 if (!(pieces[MatrixX + 1][MatrixY - 1] != null && pieces[MatrixX - 1][MatrixY + 1] instanceof WhitePiece)) {
                     this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY - 1));
                 }
