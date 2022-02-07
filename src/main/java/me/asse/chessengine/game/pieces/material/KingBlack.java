@@ -93,7 +93,7 @@ public class KingBlack extends BlackPiece {
 
             if (MatrixX - 1 >= 0) {
                 if (!(pieces[MatrixX - 1][MatrixY] != null && pieces[MatrixX - 1][MatrixY] instanceof BlackPiece)) {
-                    this.legalMoss.add(Board.getPosition(MatrixX + 1, MatrixY));
+                    this.legalMoss.add(Board.getPosition(MatrixX - 1, MatrixY));
                 }
             }
 
