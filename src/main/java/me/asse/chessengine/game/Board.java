@@ -9,6 +9,7 @@ import me.asse.chessengine.game.pieces.material.PawnBlack;
 import me.asse.chessengine.game.pieces.material.PawnWhite;
 
 import java.awt.*;
+import java.util.List;
 
 public class Board {
 
@@ -58,6 +59,7 @@ public class Board {
 
 
     public static void drawPiece(Graphics g, Piece p, int unitsize_x, int unitsize_y) {
+        g.setColor(p instanceof WhitePiece ? Color.GREEN : Color.RED);
         g.fillOval(p.getPosition().getMatrixX() * unitsize_x, 600 - (p.getPosition().getMatrixY() + 1) * unitsize_y, unitsize_x, unitsize_y);
     }
 
@@ -100,6 +102,7 @@ public class Board {
         pieces[MatrixX + x][MatrixY + y] = pieces[MatrixX][MatrixY];
         pieces[MatrixX][MatrixY] = null;
 
+        /*
         if(piece instanceof KingWhite) {
             for(Piece valute_piece : GameFrame.getGamePanel().getAllPiece()) {
                 if(valute_piece instanceof PawnBlack) {
@@ -129,6 +132,7 @@ public class Board {
                 }
             }
         }
+        */
 
         for(Piece valute_piece : GameFrame.getGamePanel().getAllPiece()) {
             if(piece instanceof WhitePiece) {
@@ -139,7 +143,8 @@ public class Board {
                     continue;
                 }
                 valute_piece.setLegalMoss(pieces, true);
-                for(Position p : valute_piece.getLegalMoss()) {
+                List<Position> captured =  valute_piece instanceof PawnBlack ? ((PawnBlack) valute_piece).getCaptureMoss() : valute_piece.getLegalMoss();
+                for(Position p : captured) {
                     if(pieces[p.getMatrixX()][p.getMatrixY()] instanceof KingWhite) {
                         pieces[MatrixX + x][MatrixY + y] = old_piece_on_board;
                         pieces[MatrixX][MatrixY] = piece;
@@ -155,7 +160,8 @@ public class Board {
                     continue;
                 }
                 valute_piece.setLegalMoss(pieces, true);
-                for(Position p : valute_piece.getLegalMoss()) {
+                List<Position> captured =  valute_piece instanceof PawnWhite ? ((PawnWhite) valute_piece).getCaptureMoss() : valute_piece.getLegalMoss();
+                for(Position p : captured) {
                     if(pieces[p.getMatrixX()][p.getMatrixY()] instanceof KingBlack) {
                         pieces[MatrixX + x][MatrixY + y] = old_piece_on_board;
                         pieces[MatrixX][MatrixY] = piece;
@@ -171,30 +177,31 @@ public class Board {
     }
 
     public static void see_status_game() {
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece())
+        {
+            GameFrame.getGamePanel().createLegalMoss(piece);
+        }
+
+
         if(check_win_white()) {
             gameStatus = GameStatus.VICTORY_WHITE;
-            return;
         }
 
-        if(check_win_black()) {
+        else if(check_win_black()) {
             gameStatus = GameStatus.VICTORY_BLACK;
-            return;
         }
 
-        if(check_draw_insufficient_material()) {
+        else if(check_draw_insufficient_material()) {
             gameStatus = GameStatus.DRAW_FOR_INSUFFICIENT_MATERIAL;
-            return;
         }
 
-        if(check_draw_stall()) {
+        else if (check_draw_stall()) {
             gameStatus = GameStatus.DRAW_FOR_STALL;
-            return;
         }
     }
 
     private static boolean check_win_white() {
         for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-            GameFrame.getGamePanel().createLegalMoss(piece);
             if(piece instanceof BlackPiece) {
                 if(piece.getLegalMoss().size() != 0) {
                     return false;
@@ -217,7 +224,6 @@ public class Board {
 
     private static boolean check_win_black() {
         for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
-            GameFrame.getGamePanel().createLegalMoss(piece);
             if(piece instanceof WhitePiece) {
                 if(piece.getLegalMoss().size() != 0) {
                     return false;
@@ -238,12 +244,30 @@ public class Board {
     }
 
     private static boolean check_draw_insufficient_material() {
-
         return false;
     }
 
     private static boolean check_draw_stall() {
-        return false;
+        boolean white_in_stalemate = true;
+        boolean black_in_stalemate = true;
+
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            if(piece instanceof BlackPiece) {
+                if(piece.getLegalMoss().size() != 0) {
+                    black_in_stalemate = false;
+                }
+            }
+        }
+
+        for(Piece piece : GameFrame.getGamePanel().getAllPiece()) {
+            if(piece instanceof WhitePiece) {
+                if(piece.getLegalMoss().size() != 0) {
+                    white_in_stalemate = false;
+                }
+            }
+        }
+
+        return white_in_stalemate || black_in_stalemate;
     }
 }
 

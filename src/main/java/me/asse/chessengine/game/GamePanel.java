@@ -24,9 +24,9 @@ public class GamePanel extends JPanel implements ActionListener{
     Timer timer;
     public Piece selectedPiece;
 
-    public List<Position> highlightsMoss = new ArrayList();
+    public List<Position> highlightsMoss = new ArrayList<>();
 
-    private List<Piece> allPiece = new ArrayList();
+    private List<Piece> allPiece = new ArrayList<>();
 
 
 
@@ -85,6 +85,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 timer.stop();
                 break;
             case DRAW_FOR_STALL:
+                System.out.println("Patta per stallo");
                 timer.stop();
                 break;
         }
@@ -161,8 +162,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public KingWhite getKingWhite() {
         for(Piece piece : this.allPiece) {
             if(piece instanceof KingWhite) {
-                KingWhite kingWhite = (KingWhite) piece;
-                return kingWhite;
+                return (KingWhite) piece;
             }
         }
         return null;
@@ -171,8 +171,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public KingBlack getKingBlack() {
         for(Piece piece : this.allPiece) {
             if(piece instanceof KingBlack) {
-                KingBlack kingBlack = (KingBlack) piece;
-                return kingBlack;
+                return (KingBlack) piece;
             }
         }
         return null;
